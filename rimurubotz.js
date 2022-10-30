@@ -162,8 +162,8 @@ text: "\n" + help(prefix, reply, cekUser, namabot, sender) + cr,
 buttonText: "SOSMED(OWNER)",
 mentions: [sender],
 sections: [{ rows: [
-{title: "IG : " + ig, rowId: prefix + "xx"},
-{title: "FB : " + fb, rowId: prefix + "xx"},
+{title: "TL : " + ig, rowId: prefix + "xx"},
+{title: "GH : " + fb, rowId: prefix + "xx"},
 {title: "TT : " + tt, rowId: prefix + "xx"},
 {title: "WA : " + owner, rowId: prefix + "xx"}
 ]}]},{quoted:nay1})
@@ -548,9 +548,9 @@ if (isMedia || isQuotedSticker) {
 download("sticker", "toimgg").then(x => { sendMedia("image", "./media/toimgg.webp", "SUKSES") })
 } else { reply("Reply Sticker")}
 break
-case 'script': 
+case 'sc': 
 if (cekUser("id", sender) == null) return Notdaftar()
-reply("https://youtube.com/channel/UCeQaKIQQhDNHMOq_odQh5Sw")
+reply("https://github.com/OrochimaruBotz")
 break
 case 'confes': case 'menfes': case 'confess': case 'menfess':
 if (cekUser("id", sender) == null) return Notdaftar()
@@ -819,7 +819,6 @@ only("proses", rimurubotz, from)
 sendMedia("image", `https://pecundang.herokuapp.com/api/${command}?url=${await download("imageUrl","makers")}`, "😀")
 } else { reply("Tag/Kirim Image dengan caption " + prefix + command)}
 break
-
 case 'imagesketchme': case 'shitme': case 'burnme': case 'blurme': case 'greyscaleme': case 'pixelateme': case 'removebgme': case 'beautifulme': case 'trashme': case 'jailme': case 'wantedme': case 'ripme': case 'gayme': case 'invertme':
 if (cekUser("id", sender) == null) return Notdaftar()
 only("proses", rimurubotz, from)
@@ -831,8 +830,53 @@ if (Tag() == "") return reply("tag Orang yang mau anda Jadikan objek")
 only("proses", rimurubotz, from)
 sendMedia("image", `https://pecundang.herokuapp.com/api/${command.split("tag")[0]}?url=${await download("PPUrl", Tag()[0])}`, "😀")
 break
+case 'ping': case 'botstatus': case 'statusbot': {
+                const used = process.memoryUsage()
+                const cpus = os.cpus().map(cpu => {
+                    cpu.total = Object.keys(cpu.times).reduce((last, type) => last + cpu.times[type], 0)
+			        return cpu
+                })
+                const cpu = cpus.reduce((last, cpu, _, { length }) => {
+                    last.total += cpu.total
+                    last.speed += cpu.speed / length
+                    last.times.user += cpu.times.user
+                    last.times.nice += cpu.times.nice
+                    last.times.sys += cpu.times.sys
+                    last.times.idle += cpu.times.idle
+                    last.times.irq += cpu.times.irq
+                    return last
+                }, {
+                    speed: 0,
+                    total: 0,
+                    times: {
+			            user: 0,
+			            nice: 0,
+			            sys: 0,
+			            idle: 0,
+			            irq: 0
+                }
+                })
+                let timestamp = speed()
+                let latensi = speed() - timestamp
+                neww = performance.now()
+                oldd = performance.now()
+                respon = `
+Kecepatan Respon ${latensi.toFixed(4)} _Second_ \n ${oldd - neww} _miliseconds_\n\nRuntime : ${runtime(process.uptime())}
 
+💻 Info Server
+RAM: ${formatp(os.totalmem() - os.freemem())} / ${formatp(os.totalmem())}
 
+_NodeJS Memory Usaage_
+${Object.keys(used).map((key, _, arr) => `${key.padEnd(Math.max(...arr.map(v=>v.length)),' ')}: ${formatp(used[key])}`).join('\n')}
+
+${cpus[0] ? `_Total CPU Usage_
+${cpus[0].model.trim()} (${cpu.speed} MHZ)\n${Object.keys(cpu.times).map(type => `- *${(type + '*').padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%`).join('\n')}
+_CPU Core(s) Usage (${cpus.length} Core CPU)_
+${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Object.keys(cpu.times).map(type => `- *${(type + '*').padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%`).join('\n')}`).join('\n\n')}` : ''}
+                `.trim()
+                m.reply(respon)
+            }
+break
 case 'ttpwhite': case 'ttpyellow': case 'ttpblue': case 'ttpred': case 'ttpgreen': case 'ttpblack': case 'ttpbrown':
 case 'ttpteal': case 'ttpsilver': case 'ttppurple': case 'ttpgray': case 'ttporange': case 'ttpmaroon': case 'ttpaquamarine': case 'ttpcoral': case 'ttpfuchsia': case 'ttpwheat':
 case 'ttplime': case 'ttpcrimson': case 'ttpkhaki': case 'ttpmagenta': case 'ttpplum': case 'ttpolive': case 'ttpcyan':
@@ -848,7 +892,6 @@ await ffmpeg("getpp.jpeg")
 .toFormat('webp')
 .save('./getpp.webp')
 break
-
 case 'meme1': case 'smeme1': case 'memegen1':
 case 'meme2': case 'smeme2': case 'memegen2':
 case 'meme3': case 'smeme3': case 'memegen3':
@@ -1021,7 +1064,7 @@ if (isGroupAdmins) return reply("Admin Bebas Share Link!")
 await rimurubotz.groupParticipantsUpdate(from, [sender], "remove")  } 
 }
 if (budy == "Assalamualaikum" || budy == "assalamualaikum"){
-reply("Waalaikumsalam❤")
+reply("Waalaikumsalam Warrohmatullahi wabarakatu kak☺️")
 } // AUTORESPODER 
 if (budy == "bot" || budy == "Bot" || budy == "BOT"  || budy == "p" || budy == "P") {
 reply(`[ *BOT-NOTIF* ]\nYa? *${namabot}* Disini, Ada yang bisa saya bantu? Gunakan command #menu untuk melihat apa saja yang bisa saya lakukan,\n• *Owner* : Bot ini di buat dengan ❤ Oleh ${namaowner}`)
